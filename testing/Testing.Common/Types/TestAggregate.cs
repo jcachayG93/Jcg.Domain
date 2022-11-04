@@ -12,7 +12,7 @@ namespace Domain.Core.UnitTests.TestCommon
         }
 
         /// <inheritdoc />
-        protected override void AssertEntityStateIsValud()
+        protected override void AssertEntityStateIsValid()
         {
             throw new NotImplementedException();
         }

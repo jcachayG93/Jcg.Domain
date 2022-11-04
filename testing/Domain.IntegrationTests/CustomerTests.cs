@@ -67,5 +67,26 @@ namespace Domain.IntegrationTests
             sut.Orders.ShouldBeEquivalentTo(orderId.ToCollection(), (x, y) =>
                 x.Id == y);
         }
+
+
+        [Fact]
+        public void InvariantRule_CustomerCantHaveMoreThan3Orders()
+        {
+            // ************ ARRANGE ************
+
+            var sut = CreateSut();
+
+            sut.AddOrder(Guid.NewGuid());
+            sut.AddOrder(Guid.NewGuid());
+            sut.AddOrder(Guid.NewGuid());
+
+            // ************ ACT ****************
+
+            var act = () => { sut.AddOrder(Guid.NewGuid()); };
+
+            // ************ ASSERT *************
+
+            act.Should().Throw<CustomerHasMoreThanThreeOrdersException>();
+        }
     }
 }

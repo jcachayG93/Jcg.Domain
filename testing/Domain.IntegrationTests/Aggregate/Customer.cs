@@ -2,6 +2,7 @@
 using Domain.Core.Aggregates;
 using Domain.Core.Aggregates.DomainEventHandlers;
 using Domain.Core.Aggregates.DomainEvents;
+using Domain.Core.Aggregates.InvarianRuleHandlers;
 
 namespace Domain.IntegrationTests.Aggregate
 {
@@ -45,9 +46,13 @@ namespace Domain.IntegrationTests.Aggregate
         }
 
         /// <inheritdoc />
-        protected override void AssertEntityStateIsValud()
+        protected override void AssertEntityStateIsValid()
         {
-            throw new NotImplementedException();
+            var pipeline = InvariantRuleHandlingPipelineProvider
+                .GetInstance(Assembly.GetExecutingAssembly())
+                .GetPipeline<Customer>();
+
+            pipeline.Handle(this);
         }
 
         /// <inheritdoc />

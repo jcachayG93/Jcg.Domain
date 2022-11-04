@@ -47,6 +47,8 @@ namespace Domain.Core.Aggregates
 
             When(domainEvent);
 
+            AssertEntityStateIsValid();
+
             Version++;
 
             _changes.Add(domainEvent);
@@ -61,7 +63,7 @@ namespace Domain.Core.Aggregates
         /// <summary>
         ///     Runs this aggregate thru the InvariantRuleHandlers pipeline to assert it's state is valid
         /// </summary>
-        protected abstract void AssertEntityStateIsValud();
+        protected abstract void AssertEntityStateIsValid();
 
         /// <summary>
         ///     The base class uses this method to get the Id value for this aggregate

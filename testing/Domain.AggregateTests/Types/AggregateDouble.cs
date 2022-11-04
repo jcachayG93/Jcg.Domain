@@ -14,6 +14,8 @@ namespace Domain.AggregateTests.Types
         }
 
         public IDomainEvent? Test_WhenArgs { get; private set; } = null;
+
+        public bool Test_AssertEntityStateWasIsValidCalled { get; set; }
         public Guid Id { get; }
 
 
@@ -25,9 +27,9 @@ namespace Domain.AggregateTests.Types
         }
 
         /// <inheritdoc />
-        protected override void AssertEntityStateIsValud()
+        protected override void AssertEntityStateIsValid()
         {
-            throw new NotImplementedException();
+            Test_AssertEntityStateWasIsValidCalled = true;
         }
 
         protected override Guid GetId()

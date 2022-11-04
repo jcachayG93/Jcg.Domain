@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Domain.AggregateTests.Types;
 using Domain.Core.Aggregates.DomainEvents;
 using Domain.Core.Exceptions;
@@ -25,17 +20,19 @@ namespace Domain.Core.UnitTests.Aggregates
             return new(Guid.NewGuid());
         }
 
-        private NonCreationalDomainEvent CreateNonCreationalDomainEvent(Guid aggregateId)
+        private NonCreationalDomainEvent CreateNonCreationalDomainEvent(
+            Guid aggregateId)
         {
             return new(aggregateId);
         }
 
         [Theory]
-        [InlineData(false,false,false)]
-        [InlineData(true,false,true)]
-        [InlineData(true,true,false)]
-        public void Apply_EventIsNoCreational_AggregateIdDoesNotMatch_ThrowsException(
-            bool isNonCreational, bool idMatches, bool shouldThrow)
+        [InlineData(false, false, false)]
+        [InlineData(true, false, true)]
+        [InlineData(true, true, false)]
+        public void
+            Apply_EventIsNoCreational_AggregateIdDoesNotMatch_ThrowsException(
+                bool isNonCreational, bool idMatches, bool shouldThrow)
         {
             // ************ ARRANGE ************
 
@@ -49,23 +46,21 @@ namespace Domain.Core.UnitTests.Aggregates
 
             // ************ ACT ****************
 
-            var act = new Action(() =>
-            {
-                sut.Apply(ev);
-            });
+            var act = new Action(() => { sut.Apply(ev); });
 
             // ************ ASSERT *************
 
             if (shouldThrow)
             {
-                act.Should().Throw<AggregateIdDoesNotMatchForNonCreationalEventException>();
+                act.Should()
+                    .Throw<
+                        AggregateIdDoesNotMatchForNonCreationalEventException>();
             }
             else
             {
                 act.Should().NotThrow();
             }
         }
-
 
 
         [Fact]
@@ -86,6 +81,25 @@ namespace Domain.Core.UnitTests.Aggregates
             sut.Test_WhenArgs.Should().Be(ev);
         }
 
+
+        [Fact]
+        public void Apple_AssertsEntityStateIsValid()
+        {
+            // ************ ARRANGE ************
+
+            var sut = CreateSut();
+
+            var ev = CreateCreationalEvent();
+
+            // ************ ACT ****************
+
+            sut.Apply(ev);
+
+            // ************ ASSERT *************
+
+            sut.Test_AssertEntityStateWasIsValidCalled.Should().BeTrue();
+        }
+
         [Fact]
         public void Apply_IncrementsVersion()
         {
@@ -103,7 +117,7 @@ namespace Domain.Core.UnitTests.Aggregates
 
             // ************ ASSERT *************
 
-            sut.Version.Should().Be(versionBefore+1);
+            sut.Version.Should().Be(versionBefore + 1);
         }
 
         [Fact]
@@ -145,7 +159,5 @@ namespace Domain.Core.UnitTests.Aggregates
 
             sut.Changes.Should().BeEmpty();
         }
-
-
     }
 }

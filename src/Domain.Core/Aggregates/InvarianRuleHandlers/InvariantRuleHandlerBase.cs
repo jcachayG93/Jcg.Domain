@@ -11,7 +11,12 @@
 
         public virtual void Handle(TAggregate aggregate)
         {
-            throw new NotImplementedException();
+            AssertEntityStateIsValid(aggregate);
+
+            if (NextHandler != null)
+            {
+                NextHandler.Handle(aggregate);
+            }
         }
 
         protected abstract void AssertEntityStateIsValid(TAggregate aggregate);
