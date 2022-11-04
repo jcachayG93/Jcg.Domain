@@ -17,6 +17,8 @@ namespace Testing.Common.Mocks.DomainEventHandler
     {
         public DomainEventHandlerHandleArgs<TAggregate>? HandleArgs { get; private set; } = null;
 
+
+        public bool PerformHandlingReturns { get; set; } 
         internal override void Handle(TAggregate aggregate, IDomainEvent domainEvent)
         {
             HandleArgs = new(aggregate, domainEvent);

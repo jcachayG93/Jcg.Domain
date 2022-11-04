@@ -1,4 +1,5 @@
 ﻿using Domain.Core.Aggregates.DomainEvents;
+using Domain.Core.Exceptions;
 
 namespace Domain.Core.Aggregates.DomainEventHandlers
 {
@@ -15,7 +16,17 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
         /// <param name="domainEvent">The event that describes how to mutate the aggregate state</param>
         internal virtual void Handle(TAggregate aggregate, IDomainEvent domainEvent)
         {
-            throw new NotImplementedException();
+            if (PerformHandling(aggregate, domainEvent))
+            {
+                return;
+            }
+
+            if (NextHandler is null)
+            {
+                throw new UnhandledDomainEventException(domainEvent);
+            }
+
+            NextHandler.Handle(aggregate, domainEvent);
         }
 
         /// <summary>

@@ -28,5 +28,13 @@ namespace Testing.Common.Assertions
                 .BeTrue(
                     "All items in collection 2 must have an equivalent in collection 1");
         }
+
+        public static void ShouldBeEquivalentTo<T>(
+            this IEnumerable<T> col1,
+            IEnumerable<T> col2)
+        where T:class
+        {
+            col1.ShouldBeEquivalentTo(col2,(x,y)=>x.Equals(y));
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Core.Aggregates.DomainEventHandlers;
 using Domain.Core.Aggregates.DomainEvents;
 
 namespace Domain.Core.Aggregates
@@ -23,7 +24,7 @@ namespace Domain.Core.Aggregates
         /// </summary>
         public IDomainEvent[] Changes => _changes.ToArray();
 
-        private List<IDomainEvent> _changes = new();
+        private readonly List<IDomainEvent> _changes = new();
 
         /// <summary>
         /// Resets the Changes collection
@@ -31,7 +32,7 @@ namespace Domain.Core.Aggregates
         /// <exception cref="NotImplementedException"></exception>
         public void ResetChanges()
         {
-            throw new NotImplementedException();
+            _changes.RemoveAll(e => true);
         }
 
         /// <summary>
