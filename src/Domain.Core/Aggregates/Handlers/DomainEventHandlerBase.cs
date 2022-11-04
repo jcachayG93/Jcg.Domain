@@ -19,7 +19,8 @@ namespace Domain.Core.Aggregates.Handlers
             TAggregate aggregate, IDomainEvent domainEvent,
             out bool wasHandled);
 
-        internal virtual void Handle(TAggregate aggregate, IDomainEvent domainEvent)
+        internal virtual void Handle(TAggregate aggregate,
+            IDomainEvent domainEvent)
         {
             PerformHandling(aggregate, domainEvent, out var wasHandled);
 
