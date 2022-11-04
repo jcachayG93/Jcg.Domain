@@ -31,7 +31,7 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 
             var act = new Action(() =>
             {
-                sut.AssemblePipelines<AggregateA>(handlerTypes);
+                sut.AssemblePipeline<AggregateA>(handlerTypes);
             });
 
             // ************ ASSERT *************
@@ -41,21 +41,6 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
                     DomainEventHandlerParameterlessConstructorNotFoundException>();
         }
 
-        [Fact]
-        public void NoHandlers_ReturnsNull()
-        {
-            // ************ ARRANGE ************
-
-            var sut = CreateSut();
-
-            // ************ ACT ****************
-
-            var result = sut.AssemblePipelines<AggregateA>(new List<Type>());
-
-            // ************ ASSERT *************
-
-            result.Should().BeNull();
-        }
 
         [Fact]
         public void CreatesAPipelineThatContainsAllHandlersForAggregate()
@@ -70,7 +55,7 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 
             // ************ ACT ****************
 
-            var result = sut.AssemblePipelines<AggregateA>(handlerTypes);
+            var result = sut.AssemblePipeline<AggregateA>(handlerTypes);
 
             // ************ ASSERT *************
 

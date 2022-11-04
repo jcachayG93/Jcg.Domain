@@ -21,10 +21,11 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
         /// <typeparam name="TAggregate">The aggregate type</typeparam>
         /// <param name="handlerTypes">The handlers matching the specified aggregate type</param>
         /// <returns>The pipeline</returns>
-        // TODO: Rename to AssemblePipeline
-        // TODO: Would be better to return non nullable
-        public DomainEventHandlerBase<TAggregate>?
-            AssemblePipelines<TAggregate>(
+        /// <exception cref="DomainEventHandlerParameterlessConstructorNotFoundException">
+        ///     When domain event handler count not be instantiated because it did not have a parameterless constructor
+        /// </exception>
+        public DomainEventHandlerBase<TAggregate>
+            AssemblePipeline<TAggregate>(
                 IEnumerable<Type> handlerTypes)
             where TAggregate : AggregateRootBase
         {
@@ -37,10 +38,6 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
                         Activator.CreateInstance(t)!)
                     .Cast<DomainEventHandlerBase<TAggregate>>();
 
-            if (!handlers.Any())
-            {
-                return null;
-            }
 
             DomainEventHandlerBase<TAggregate>? firstHandler = null;
             DomainEventHandlerBase<TAggregate>? previousHandler = null;

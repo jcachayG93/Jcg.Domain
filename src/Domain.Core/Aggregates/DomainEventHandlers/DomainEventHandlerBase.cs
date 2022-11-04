@@ -4,7 +4,8 @@ using Domain.Core.Exceptions;
 namespace Domain.Core.Aggregates.DomainEventHandlers
 {
     /// <summary>
-    ///     A Chain of responsibility handler that apply a domain event to update the aggregate state
+    ///     A Chain of responsibility handler that apply a domain event
+    ///     to update the aggregate state
     /// </summary>
     public abstract class DomainEventHandlerBase
         <TAggregate> where TAggregate : AggregateRootBase
@@ -20,6 +21,7 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
         /// </summary>
         /// <param name="aggregate">The aggregate whose state will be mutated</param>
         /// <param name="domainEvent">The event that describes how to mutate the aggregate state</param>
+        /// <exception cref="UnhandledDomainEventException">When the event ran thru the pipeline unhandled</exception>
         public virtual void Handle(TAggregate aggregate,
             IDomainEvent domainEvent)
         {

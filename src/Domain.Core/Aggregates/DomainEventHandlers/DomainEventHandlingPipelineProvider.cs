@@ -1,9 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Collections.Concurrent;
+using System.Reflection;
 using Domain.Core.Exceptions;
 
 namespace Domain.Core.Aggregates.DomainEventHandlers
 {
-    // TODO: Throw an exception when a domain event has no handlers
     public class DomainEventHandlingPipelineProvider
     {
         private DomainEventHandlingPipelineProvider(
@@ -28,6 +28,12 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
             }
         }
 
+        /// <summary>
+        ///     Creates a pipeline with all the handlers
+        /// </summary>
+        /// <typeparam name="TAggregate">The Aggregate type</typeparam>
+        /// <returns>The pipeline</returns>
+        /// <exception cref="NoDomainEventHandlersFoundException">When no handlers for the Aggregate were found</exception>
         public DomainEventHandlerBase<TAggregate> GetPipeline<TAggregate>()
             where TAggregate : AggregateRootBase
         {
@@ -49,11 +55,11 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
             }
 
             var pipeline =
-                _assembler.AssemblePipelines<TAggregate>(handlerTypes)!;
+                _assembler.AssemblePipeline<TAggregate>(handlerTypes)!;
 
             // We add the pipeline to the cache, even if it is null, so, we don't have to scan again next time this is called,
             // null indicates there are no handlers in the assembly.
-            _cache.Add(typeof(TAggregate), pipeline);
+            _cache.AddOrUpdate(typeof(TAggregate), pipeline, (k, v) => v);
 
             return pipeline;
         }
@@ -67,8 +73,7 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
         ///     Caches GetPipeline result, the key is the Aggregate type, the value is the Pipeline instance,
         ///     is important to cache this data because it is expensive to calculate, that is why this class is a singleton.
         /// </summary>
-        // TODO: Change for a concurrent dictionary
-        private readonly Dictionary<Type, object> _cache = new();
+        private readonly ConcurrentDictionary<Type, object> _cache = new();
 
         private readonly DomainEventHandlerTypesScanner _scanner;
     }
