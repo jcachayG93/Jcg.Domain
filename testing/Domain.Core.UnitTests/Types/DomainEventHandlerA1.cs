@@ -1,5 +1,5 @@
-﻿using Domain.Core.Aggregates.DomainEvents;
-using Domain.Core.Aggregates.Handlers;
+﻿using Domain.Core.Aggregates.DomainEventHandlers;
+using Domain.Core.Aggregates.DomainEvents;
 
 namespace Domain.Core.UnitTests.Types;
 

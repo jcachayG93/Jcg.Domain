@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Core.Exceptions;
+﻿using Domain.Core.Exceptions;
 
-namespace Domain.Core.Aggregates.Handlers
+namespace Domain.Core.Aggregates.DomainEventHandlers
 {
     /// <summary>
     /// Assembles the DomainEventHandlerPipeline for the specified aggregate type
@@ -26,6 +20,8 @@ namespace Domain.Core.Aggregates.Handlers
             IEnumerable<Type> handlerTypes)
         where TAggregate : AggregateRootBase
         {
+            TimesCalled++;
+
             AssertAllHaveParameterlessConstructor(handlerTypes);
 
             var handlers = handlerTypes.Select(t =>
@@ -69,5 +65,11 @@ namespace Domain.Core.Aggregates.Handlers
                 }
             }
         }
+
+        /// <summary>
+        /// Just for testing, because I am not using a DI framework, this makes it much easier to test that the
+        /// DomainEventHandlerPipeline provider caches the result
+        /// </summary>
+        internal static int TimesCalled { get; private set; }
     }
 }

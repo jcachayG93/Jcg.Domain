@@ -3,9 +3,9 @@ using Domain.Core.Aggregates.DomainEvents;
 
 namespace Domain.Core.UnitTests.Types;
 
-public class DomainEventHandlerA2 : DomainEventHandlerBase<AggregateA>
+public class DomainEventHandlerB1 : DomainEventHandlerBase<AggregateB>
 {
-    protected override bool PerformHandling(AggregateA aggregate, IDomainEvent domainEvent)
+    protected override bool PerformHandling(AggregateB aggregate, IDomainEvent domainEvent)
     {
         throw new NotImplementedException();
     }

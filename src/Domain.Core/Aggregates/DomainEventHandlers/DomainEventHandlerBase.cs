@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Core.Aggregates.DomainEvents;
+﻿using Domain.Core.Aggregates.DomainEvents;
 
-namespace Domain.Core.Aggregates.Handlers
+namespace Domain.Core.Aggregates.DomainEventHandlers
 {
     /// <summary>
     /// A Chain of responsibility handler that apply a domain event to update the aggregate state

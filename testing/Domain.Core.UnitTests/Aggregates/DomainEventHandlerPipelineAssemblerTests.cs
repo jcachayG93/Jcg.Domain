@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Core.Aggregates.Handlers;
+using Domain.Core.Aggregates.DomainEventHandlers;
 using Domain.Core.Exceptions;
+using Domain.Core.UnitTests.TestCommon;
 using Domain.Core.UnitTests.Types;
 using FluentAssertions;
 using Testing.Common.Assertions;
@@ -43,6 +44,22 @@ namespace Domain.Core.UnitTests.Aggregates
         }
 
         [Fact]
+        public void NoHandlers_ReturnsNull()
+        {
+            // ************ ARRANGE ************
+
+            var sut = CreateSut();
+
+            // ************ ACT ****************
+
+            var result = sut.AssemblePipelines<AggregateA>(new List<Type>());
+
+            // ************ ASSERT *************
+
+            result.Should().BeNull();
+        }
+
+        [Fact]
         public void CreatesAPipelineThatContainsAllHandlersForAggregate()
         {
             // ************ ARRANGE ************
@@ -59,7 +76,8 @@ namespace Domain.Core.UnitTests.Aggregates
 
             // ************ ASSERT *************
 
-            var handlers = ExtractHandlers(result);
+            var handlers = ExtractDomainEventHandlersHelper
+                .ExtractHandlers<AggregateA>(result);
 
             handlers.ShouldBeEquivalentTo(handlerTypes,(x,y)=>
                 x.GetType() == y);
@@ -67,25 +85,5 @@ namespace Domain.Core.UnitTests.Aggregates
 
         
 
-        /// <summary>
-        /// Extracts all the handlers from the pipeline
-        /// </summary>
-        private IEnumerable<DomainEventHandlerBase<AggregateA>> ExtractHandlers(
-            DomainEventHandlerBase<AggregateA> pipeline)
-        {
-            var result = new List<DomainEventHandlerBase<AggregateA>>();
-
-            var current = pipeline;
-
-            while (current.NextHandler != null)
-            {
-                result.Add(current);
-                current = current.NextHandler;
-            }
-
-            result.Add(current);
-
-            return result;
-        }
     }
 }

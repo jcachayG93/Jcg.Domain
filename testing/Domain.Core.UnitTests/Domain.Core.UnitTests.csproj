@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Testing.Common\Testing.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Aggregates\DomainEventHandlers\" />
+  </ItemGroup>
+
 </Project>
