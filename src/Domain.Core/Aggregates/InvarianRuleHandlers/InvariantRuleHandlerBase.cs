@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Core.Aggregates.InvarianRuleHandlers
+﻿namespace Domain.Core.Aggregates.InvarianRuleHandlers
 {
-    public class InvariantRuleHandlerBase
+    public class InvariantRuleHandlerBase<TAggregate>
+        where TAggregate : AggregateRootBase
     {
-
     }
 }
