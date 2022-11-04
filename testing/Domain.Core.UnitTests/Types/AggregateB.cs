@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Core.Aggregates;
+﻿using Domain.Core.Aggregates;
 using Domain.Core.Aggregates.DomainEvents;
 
 namespace Domain.Core.UnitTests.Types
@@ -16,11 +10,15 @@ namespace Domain.Core.UnitTests.Types
             throw new NotImplementedException();
         }
 
-        protected override Guid GetId()
+        /// <inheritdoc />
+        protected override void AssertEntityStateIsValud()
         {
             throw new NotImplementedException();
         }
 
-  
+        protected override Guid GetId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

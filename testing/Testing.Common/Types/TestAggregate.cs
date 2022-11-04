@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Domain.Core.Aggregates;
+﻿using Domain.Core.Aggregates;
 using Domain.Core.Aggregates.DomainEvents;
 
 namespace Domain.Core.UnitTests.TestCommon
@@ -13,11 +12,15 @@ namespace Domain.Core.UnitTests.TestCommon
         }
 
         /// <inheritdoc />
-        protected override Guid GetId()
+        protected override void AssertEntityStateIsValud()
         {
             throw new NotImplementedException();
         }
 
- 
+        /// <inheritdoc />
+        protected override Guid GetId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

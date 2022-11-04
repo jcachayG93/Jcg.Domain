@@ -1,31 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Domain.Core.Aggregates;
 using Domain.Core.Aggregates.DomainEvents;
 
 namespace Domain.AggregateTests.Types
 {
     public class AggregateDouble
-    : AggregateRootBase
+        : AggregateRootBase
     {
-        public IDomainEvent? Test_WhenArgs { get; private set; } = null;
-        public Guid Id { get; }
-
-        private readonly Assembly _assemblyContainingHandlers;
-
         public AggregateDouble(Guid id, Assembly assemblyContainingHandlers)
         {
             Id = id;
             _assemblyContainingHandlers = assemblyContainingHandlers;
         }
 
+        public IDomainEvent? Test_WhenArgs { get; private set; } = null;
+        public Guid Id { get; }
+
+
+        public string Name { get; set; } = "";
+
         protected override void When(IDomainEvent domainEvent)
         {
             Test_WhenArgs = domainEvent;
+        }
+
+        /// <inheritdoc />
+        protected override void AssertEntityStateIsValud()
+        {
+            throw new NotImplementedException();
         }
 
         protected override Guid GetId()
@@ -33,8 +35,6 @@ namespace Domain.AggregateTests.Types
             return Id;
         }
 
-
-
-        public string Name { get; set; } = "";
+        private readonly Assembly _assemblyContainingHandlers;
     }
 }

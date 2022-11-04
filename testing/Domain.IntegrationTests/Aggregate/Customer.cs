@@ -45,6 +45,12 @@ namespace Domain.IntegrationTests.Aggregate
         }
 
         /// <inheritdoc />
+        protected override void AssertEntityStateIsValud()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         protected override Guid GetId()
         {
             return Id;

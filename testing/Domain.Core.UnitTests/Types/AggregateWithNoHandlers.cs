@@ -13,6 +13,12 @@ namespace Domain.Core.UnitTests.Types
         }
 
         /// <inheritdoc />
+        protected override void AssertEntityStateIsValud()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         protected override Guid GetId()
         {
             throw new NotImplementedException();
