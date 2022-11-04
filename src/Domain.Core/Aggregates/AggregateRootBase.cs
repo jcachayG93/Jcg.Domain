@@ -11,7 +11,7 @@ namespace Domain.Core.Aggregates
         /// <summary>
         ///     The Aggregate version is incremented each time a command is applied
         /// </summary>
-        public long Version { get; private set; }
+        public long Version { get; protected set; }
 
         /// <summary>
         ///     Contains all the domain events that have been applied to the aggregate
