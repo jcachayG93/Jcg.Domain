@@ -15,6 +15,21 @@ This pipeline is assembled automatically via reflection.
 
 ## Usage
 
+### Create domain events
+There are two type of events: Creational (Initializes an aggregate) and Non-Creational (Updates an aggregate).
+When applying a Non-Creational domain event, it's AggregateId value must match the Aggregate Id otherwise an exception will be thrown. This is not the case when the event is Creational
+
+Creational domain event:
+```
+public record CustomerCreated
+        (Guid AggregateId, string Name) : ICreationalDomainEvent;
+```
+
+NonCreational domain event:
+```
+public record CustomerNameUpdated
+        (Guid AggregateId, string Name) : INonCreationalDomainEvent;
+```
 ### Create an agregate
 The aggregate must inherit the **AggregateRootBase** class. For the DomainEventHandlers
 ```
