@@ -47,4 +47,5 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
 
         internal DomainEventHandlerBase<TAggregate>? NextHandler { get; private set; } = null;
     }
+
 }

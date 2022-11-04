@@ -2,6 +2,7 @@
 
 namespace Domain.Core.Aggregates.DomainEventHandlers
 {
+    // TODO: Throw an exception when a domain event has no handlers
     internal class DomainEventHandlingPipelineProvider
     {
         private readonly Assembly _assemblyToScan;

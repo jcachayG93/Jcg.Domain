@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Core.Aggregates.DomainEventHandlers;
 using Domain.Core.Aggregates.DomainEvents;
+using Domain.Core.Exceptions;
 
 namespace Domain.Core.Aggregates
 {
@@ -45,19 +46,30 @@ namespace Domain.Core.Aggregates
         /// </summary>
         public void Apply(IDomainEvent domainEvent)
         {
-            throw new NotImplementedException();
+            if (domainEvent is INonCreationalDomainEvent && domainEvent.AggregateId != GetId())
+            {
+                throw new AggregateIdDoesNotMatchForNonCreationalEventException(GetId(), domainEvent.AggregateId,
+                    domainEvent.GetType().FullName!);
+            }
+
+            When(domainEvent);
+
+            Version++;
+
+            _changes.Add(domainEvent);
         }
+
+        /// <summary>
+        /// Handle the event using the domain event handler pipeline
+        /// </summary>
+        /// <param name="domainEvent"></param>
+        protected abstract void When(IDomainEvent domainEvent);
 
         /// <summary>
         /// The base class uses this method to get the Id value for this aggregate
         /// </summary>
         protected abstract Guid GetId();
 
-        /// <summary>
-        /// The base class uses this method to get the assembly that contains the handlers so
-        /// it can assembly a handlers pipelines (for invariants and domain event handlers)
-        /// </summary>
-        /// <returns></returns>
-        protected abstract Assembly GetAssemblyContainingHandlers();
+     
     }
 }

@@ -20,15 +20,14 @@ namespace Domain.Core.UnitTests.Aggregates
             return new(Guid.NewGuid(), Assembly.GetExecutingAssembly());
         }
 
-        private CreationalDomainEvent CreateCreationalEvent(Guid aggregateId, string name = "")
+        private CreationalDomainEvent CreateCreationalEvent()
         {
-            return new(aggregateId, name);
+            return new(Guid.NewGuid());
         }
 
-        private NonCreationalDomainEvent CreateNonCreationalDomainEvent(Guid aggregateId,
-            string name = "")
+        private NonCreationalDomainEvent CreateNonCreationalDomainEvent(Guid aggregateId)
         {
-            return new(aggregateId, name);
+            return new(aggregateId);
         }
 
         [Theory]
@@ -46,7 +45,7 @@ namespace Domain.Core.UnitTests.Aggregates
 
             IDomainEvent ev = isNonCreational
                 ? CreateNonCreationalDomainEvent(eventAggregateId)
-                : CreateCreationalEvent(eventAggregateId);
+                : CreateCreationalEvent();
 
             // ************ ACT ****************
 
@@ -67,40 +66,16 @@ namespace Domain.Core.UnitTests.Aggregates
             }
         }
 
+
+
         [Fact]
-        public void Apply_NoHandlers_ThrowsException()
+        public void Apply_DelegatesToWhen()
         {
             // ************ ARRANGE ************
 
             var sut = CreateSut();
 
-            var ev = new EventWithNoHandlers(Guid.NewGuid());
-
-            // ************ ACT ****************
-
-            var act = new Action(() =>
-            {
-                sut.Apply(ev);
-            });
-
-            // ************ ASSERT *************
-
-            act.Should().Throw<UnhandledDomainEventException>();
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void Apply_DelegatesToDomainEventHandlerPipeline(
-            bool isCreational)
-        {
-            // ************ ARRANGE ************
-
-            var sut = CreateSut();
-
-            IDomainEvent ev = isCreational
-                ? CreateCreationalEvent(sut.Id, "aaa")
-                : CreateNonCreationalDomainEvent(sut.Id, "aaa");
+            var ev = CreateCreationalEvent();
 
             // ************ ACT ****************
 
@@ -108,7 +83,7 @@ namespace Domain.Core.UnitTests.Aggregates
 
             // ************ ASSERT *************
 
-            sut.Name.Should().Be("aaa");
+            sut.Test_WhenArgs.Should().Be(ev);
         }
 
         [Fact]
@@ -118,7 +93,7 @@ namespace Domain.Core.UnitTests.Aggregates
 
             var sut = CreateSut();
 
-            var ev = CreateCreationalEvent(sut.Id, "");
+            var ev = CreateCreationalEvent();
 
             var versionBefore = sut.Version;
 
@@ -128,7 +103,7 @@ namespace Domain.Core.UnitTests.Aggregates
 
             // ************ ASSERT *************
 
-            sut.Version.Should().Be(versionBefore++);
+            sut.Version.Should().Be(versionBefore+1);
         }
 
         [Fact]
@@ -138,7 +113,7 @@ namespace Domain.Core.UnitTests.Aggregates
 
             var sut = CreateSut();
 
-            var ev = CreateCreationalEvent(sut.Id, "");
+            var ev = CreateCreationalEvent();
 
             // ************ ACT  ****************
 
@@ -156,9 +131,11 @@ namespace Domain.Core.UnitTests.Aggregates
 
             var sut = CreateSut();
 
-            var ev = CreateCreationalEvent(sut.Id, "");
+            var ev = CreateCreationalEvent();
 
             sut.Apply(ev);
+
+            sut.Changes.Any().Should().BeTrue();
 
             // ************ ACT ****************
 
