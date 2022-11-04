@@ -1,8 +1,6 @@
 # JCG-DOMAIN-CORE
 
-Abstracts complexity from a domain layer, making it easier to:
-1. Apply domain events to mutate state
-2. Enforce Invariants
-3. Keep track of the Domain events that were applied
+>Abstracts complexity from a domain layer by decoupling the DomainEventHandlers and
+InvariantRuleHandlers into sepparate classes that are assembled into pipelines.
 
 ## Features
