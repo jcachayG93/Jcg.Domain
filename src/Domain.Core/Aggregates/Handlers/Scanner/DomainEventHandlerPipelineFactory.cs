@@ -1,13 +1,17 @@
 ﻿using System.Reflection;
 
-namespace Domain.Core.Aggregates.Handlers
+namespace Domain.Core.Aggregates.Handlers.Scanner
 {
     internal class DomainEventHandlerPipelineFactory
     {
         private DomainEventHandlerPipelineFactory(Assembly assemblyToScan)
         {
-            throw new NotImplementedException();
+            var getAggregateTypesHelper = new GetAggregateTypesScanner();
+
+            var aggregateTypes =
+                getAggregateTypesHelper.GetAggregateTypes(assemblyToScan);
         }
+
 
         public static DomainEventHandlerPipelineFactory GetInstance(
             Assembly assemblyToScan)
@@ -33,5 +37,7 @@ namespace Domain.Core.Aggregates.Handlers
         }
 
         private static DomainEventHandlerPipelineFactory? _instance = null;
+
+        private Dictionary<AggregateRootBase, object> _pipelines = new();
     }
 }

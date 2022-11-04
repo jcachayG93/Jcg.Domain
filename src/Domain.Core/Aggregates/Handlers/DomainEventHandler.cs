@@ -18,12 +18,14 @@ internal class
      */
     public DomainEventHandler(IDomainEventHandler<TAggregate> handlerStrategy)
     {
-        _handlerStrategy = handlerStrategy;
+        HandlerStrategy = handlerStrategy;
     }
+
+    public IDomainEventHandler<TAggregate> HandlerStrategy { get; }
 
     public void Handle(TAggregate aggregate, IDomainEvent domainEvent)
     {
-        var handled = _handlerStrategy.PerformHandling(aggregate, domainEvent);
+        var handled = HandlerStrategy.PerformHandling(aggregate, domainEvent);
 
         if (handled)
         {
@@ -42,8 +44,6 @@ internal class
     {
         _nextHandler = nextHandler;
     }
-
-    private readonly IDomainEventHandler<TAggregate> _handlerStrategy;
 
     private IDomainEventHandler<TAggregate>? _nextHandler = null;
 }
