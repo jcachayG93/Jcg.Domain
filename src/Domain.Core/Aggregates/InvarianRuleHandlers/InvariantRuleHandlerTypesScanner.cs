@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
 
-namespace Domain.Core.Aggregates.DomainEventHandlers
+namespace Domain.Core.Aggregates.InvarianRuleHandlers
 {
     /// <summary>
-    ///     Scans the assembly to get all handler types for the
-    ///     specified aggregate type
+    ///     Scans the assembly to get all handler types for the specified aggregate type
     /// </summary>
-    internal class DomainEventHandlerTypesScanner
+    public class InvariantRuleHandlerTypesScanner
     {
         /// <summary>
         ///     Just for testing, because I am not using a DI framework, this makes it much easier to test that the
@@ -25,6 +24,7 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
             Assembly assemblyToScan)
         {
             TimesCalled++;
+
             return
                 assemblyToScan
                     .GetTypes()
@@ -32,7 +32,7 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
                         t.BaseType != null &&
                         t.BaseType.IsGenericType &&
                         t.BaseType.GetGenericTypeDefinition() ==
-                        typeof(DomainEventHandlerBase<>) &&
+                        typeof(InvariantRuleHandlerBase<>) &&
                         t.BaseType.GetGenericArguments()[0] ==
                         typeof(TAggregate))
                     .ToList();

@@ -1,34 +1,30 @@
 ﻿using System.Reflection;
-using Domain.Core.Aggregates.DomainEventHandlers;
-using Domain.Core.Exceptions;
+using Domain.Core.Aggregates.InvarianRuleHandlers;
 using Domain.Core.UnitTests.TestCommon;
 using Domain.Core.UnitTests.Types;
 using FluentAssertions;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
+namespace Domain.Core.UnitTests.Aggregates.InvariantRuleHandlers
 {
-    public class DomainEventHandlingPipelineProviderTests
+    public class InvariantRuleHandlingPipelineProviderTests
     {
         [Fact]
         public async Task ImplementsSingletonPattern()
         {
-            /*
-             * Get many instances in parallel, then assert all are the same object
-             */
-
             // ************ ARRANGE ************
 
             var instanceTasks = Enumerable.Range(0, 500000)
                 .Select(i => Task.Run(() =>
-                    DomainEventHandlingPipelineProvider.GetInstance(
+                    InvariantRuleHandlingPipelineProvider.GetInstance(
                         Assembly.GetExecutingAssembly())));
 
 
             // ************ ACT ****************
 
-            var instances = await Task.WhenAll(instanceTasks);
+            var instances =
+                await Task.WhenAll(instanceTasks);
 
             // ************ ASSERT *************
 
@@ -40,46 +36,48 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 
 
         [Fact]
-        public void NoHandlersFoundForAggregate_ThrowsException()
+        public void NoHandlersFoundForAggregate_ReturnsDefaultHandler()
         {
             // ************ ARRANGE ************
 
-            var instance = DomainEventHandlingPipelineProvider
+            var instance = InvariantRuleHandlingPipelineProvider
                 .GetInstance(Assembly.GetExecutingAssembly());
 
             // ************ ACT ****************
 
-            var act = () =>
-            {
+            var result =
                 instance.GetPipeline<AggregateWithNoHandlers>();
-            };
+
 
             // ************ ASSERT *************
 
-            act
-                .Should().Throw<NoDomainEventHandlersFoundException>();
+            result.Should()
+                .BeOfType<
+                    DefaultInvariantRuleHandler<AggregateWithNoHandlers>>();
         }
+
 
         [Fact]
         public void GetPipeline_AssemblesPipelineWithHandlersForAggregate()
         {
             // ************ ARRANGE ************
 
-            var instance = DomainEventHandlingPipelineProvider
+            var instance = InvariantRuleHandlingPipelineProvider
                 .GetInstance(Assembly.GetExecutingAssembly());
 
             // ************ ACT ****************
 
-            var pipeline = instance.GetPipeline<AggregateB>();
+            var pipeline = instance.GetPipeline<AggregateA>();
 
             // ************ ASSERT *************
 
-            var handlers = ExtractDomainEventHandlersHelper
-                .ExtractHandlers<AggregateB>(pipeline);
+            var handlers =
+                ExtractInvariantRuleHandlersHelper
+                    .ExtractHandlers<AggregateA>(pipeline);
 
             var expected =
-                typeof(DomainEventHandlerB1)
-                    .ToCollection(typeof(DomainEventHandlerB2));
+                typeof(InvariantRuleHandlerA1)
+                    .ToCollection(typeof(InvariantRuleHandlerA2));
 
             handlers.ShouldBeEquivalentTo(expected, (x, y) =>
                 x.GetType() == y);
@@ -90,22 +88,23 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
         {
             // ************ ARRANGE ************
 
-            var instance = DomainEventHandlingPipelineProvider
+            var instance = InvariantRuleHandlingPipelineProvider
                 .GetInstance(Assembly.GetExecutingAssembly());
 
             // ************ ACT ****************
 
             for (var i = 0; i < 1000; i++)
             {
-                instance.GetPipeline<AggregateB>();
+                instance.GetPipeline<AggregateA>();
             }
 
             // ************ ASSERT *************
 
             // Was BeExactlyOne before but other tests use will cause sometimes to be a little more than 1. If we are caching the result
             // testing that calling the GetPipeline method 1000 times resulted in less than 5 or so calls it means the result is being cached.
-            DomainEventHandlerTypesScanner.TimesCalled.Should().BeLessThan(5);
-            DomainEventHandlerPipelineAssembler.TimesCalled.Should()
+            InvariantRuleHandlerPipelineAssembler.TimesCalled.Should()
+                .BeLessThan(5);
+            InvariantRuleHandlerPipelineAssembler.TimesCalled.Should()
                 .BeLessThan(5);
         }
     }

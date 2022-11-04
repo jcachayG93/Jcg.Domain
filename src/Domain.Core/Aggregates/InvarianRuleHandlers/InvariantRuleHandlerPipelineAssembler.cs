@@ -1,11 +1,8 @@
 ﻿using Domain.Core.Exceptions;
 
-namespace Domain.Core.Aggregates.DomainEventHandlers
+namespace Domain.Core.Aggregates.InvarianRuleHandlers
 {
-    /// <summary>
-    ///     Assembles the DomainEventHandlerPipeline for the specified aggregate type
-    /// </summary>
-    internal class DomainEventHandlerPipelineAssembler
+    internal class InvariantRuleHandlerPipelineAssembler
     {
         /// <summary>
         ///     Just for testing, because I am not using a DI framework, this makes it much easier to test that the
@@ -14,18 +11,18 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
         internal static int TimesCalled { get; private set; }
 
         /// <summary>
-        ///     Provided the handlerTypes are of type DomainEventHandlerBase[TAggregate] with
+        ///     Provided the handlerTypes are of type InvariantRuleHandlerBase[TAggregate] with
         ///     parameterless constructors, will instantiate the handlers and assemble them
-        ///     into a domain event handler pipeline
+        ///     into a pipeline (chain of responsibility pattern)
         /// </summary>
         /// <typeparam name="TAggregate">The aggregate type</typeparam>
-        /// <param name="handlerTypes">The handlers matching the specified aggregate type</param>
+        /// <param name="handlerTypes">
+        ///     The handlers matching the specified aggregate
+        ///     type
+        /// </param>
         /// <returns>The pipeline</returns>
-        // TODO: Rename to AssemblePipeline
-        // TODO: Would be better to return non nullable
-        public DomainEventHandlerBase<TAggregate>?
-            AssemblePipelines<TAggregate>(
-                IEnumerable<Type> handlerTypes)
+        public InvariantRuleHandlerBase<TAggregate>?
+            AssemblePipeline<TAggregate>(IEnumerable<Type> handlerTypes)
             where TAggregate : AggregateRootBase
         {
             TimesCalled++;
@@ -35,15 +32,15 @@ namespace Domain.Core.Aggregates.DomainEventHandlers
             var handlers =
                 handlerTypes.Select(t =>
                         Activator.CreateInstance(t)!)
-                    .Cast<DomainEventHandlerBase<TAggregate>>();
+                    .Cast<InvariantRuleHandlerBase<TAggregate>>();
 
             if (!handlers.Any())
             {
                 return null;
             }
 
-            DomainEventHandlerBase<TAggregate>? firstHandler = null;
-            DomainEventHandlerBase<TAggregate>? previousHandler = null;
+            InvariantRuleHandlerBase<TAggregate>? firstHandler = null;
+            InvariantRuleHandlerBase<TAggregate>? previousHandler = null;
 
             foreach (var handler in handlers)
             {

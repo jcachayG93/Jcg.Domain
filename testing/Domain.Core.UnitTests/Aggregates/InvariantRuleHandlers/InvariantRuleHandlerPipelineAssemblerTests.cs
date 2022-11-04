@@ -1,4 +1,4 @@
-﻿using Domain.Core.Aggregates.DomainEventHandlers;
+﻿using Domain.Core.Aggregates.InvarianRuleHandlers;
 using Domain.Core.Exceptions;
 using Domain.Core.UnitTests.TestCommon;
 using Domain.Core.UnitTests.Types;
@@ -6,11 +6,11 @@ using FluentAssertions;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
+namespace Domain.Core.UnitTests.Aggregates.InvariantRuleHandlers
 {
-    public class DomainEventHandlerPipelineAssemblerTests
+    public class InvariantRuleHandlerPipelineAssemblerTests
     {
-        private DomainEventHandlerPipelineAssembler CreateSut()
+        private InvariantRuleHandlerPipelineAssembler CreateSut()
         {
             return new();
         }
@@ -24,14 +24,14 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
             var sut = CreateSut();
 
             var handlerTypes =
-                typeof(DomainEventHandlerWithoutParameterlessConstructor)
+                typeof(InvariantRuleHandlerWithoutParameterlessConstructor)
                     .ToCollection();
 
             // ************ ACT ****************
 
             var act = new Action(() =>
             {
-                sut.AssemblePipelines<AggregateA>(handlerTypes);
+                sut.AssemblePipeline<AggregateB>(handlerTypes);
             });
 
             // ************ ASSERT *************
@@ -50,7 +50,8 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 
             // ************ ACT ****************
 
-            var result = sut.AssemblePipelines<AggregateA>(new List<Type>());
+            var result =
+                sut.AssemblePipeline<AggregateA>(new List<Type>());
 
             // ************ ASSERT *************
 
@@ -65,20 +66,22 @@ namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
             var sut = CreateSut();
 
             var handlerTypes =
-                typeof(DomainEventHandlerA1).ToCollection(
-                    typeof(DomainEventHandlerA2));
+                typeof(InvariantRuleHandlerA1).ToCollection(
+                    typeof(InvariantRuleHandlerA2));
 
             // ************ ACT ****************
 
-            var result = sut.AssemblePipelines<AggregateA>(handlerTypes);
+            var result = sut.AssemblePipeline<AggregateA>(handlerTypes);
 
             // ************ ASSERT *************
 
-            var handlers = ExtractDomainEventHandlersHelper
-                .ExtractHandlers<AggregateA>(result);
+            var handlers =
+                ExtractInvariantRuleHandlersHelper
+                    .ExtractHandlers<AggregateA>(result);
 
-            handlers.ShouldBeEquivalentTo(handlerTypes, (x, y) =>
-                x.GetType() == y);
+            handlers.ShouldBeEquivalentTo(handlerTypes,
+                (x, y) =>
+                    x.GetType() == y);
         }
     }
 }
