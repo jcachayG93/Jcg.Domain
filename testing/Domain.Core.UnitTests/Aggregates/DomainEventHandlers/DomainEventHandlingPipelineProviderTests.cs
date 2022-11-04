@@ -11,7 +11,7 @@ using FluentAssertions;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates
+namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 {
     public class DomainEventHandlingPipelineProviderTests
     {
@@ -62,8 +62,8 @@ namespace Domain.Core.UnitTests.Aggregates
                 typeof(DomainEventHandlerB1)
                     .ToCollection(typeof(DomainEventHandlerB2));
 
-            handlers.ShouldBeEquivalentTo(expected,(x,y)=>
-                x.GetType()==y);
+            handlers.ShouldBeEquivalentTo(expected, (x, y) =>
+                x.GetType() == y);
         }
 
         [Fact]

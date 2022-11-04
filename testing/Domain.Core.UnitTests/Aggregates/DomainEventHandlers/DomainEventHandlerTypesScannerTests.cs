@@ -9,7 +9,7 @@ using Domain.Core.UnitTests.Types;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates
+namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 {
     public class DomainEventHandlerTypesScannerTests
     {
@@ -30,8 +30,8 @@ namespace Domain.Core.UnitTests.Aggregates
             var expected = typeof(DomainEventHandlerB1)
                 .ToCollection(typeof(DomainEventHandlerB2));
 
-            result.ShouldBeEquivalentTo(expected,(x,y)=>
-                x==y);
+            result.ShouldBeEquivalentTo(expected, (x, y) =>
+                x == y);
         }
     }
 }

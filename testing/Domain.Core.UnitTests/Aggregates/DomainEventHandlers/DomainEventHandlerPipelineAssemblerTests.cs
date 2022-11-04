@@ -12,7 +12,7 @@ using FluentAssertions;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates
+namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 {
     public class DomainEventHandlerPipelineAssemblerTests
     {
@@ -79,11 +79,11 @@ namespace Domain.Core.UnitTests.Aggregates
             var handlers = ExtractDomainEventHandlersHelper
                 .ExtractHandlers<AggregateA>(result);
 
-            handlers.ShouldBeEquivalentTo(handlerTypes,(x,y)=>
+            handlers.ShouldBeEquivalentTo(handlerTypes, (x, y) =>
                 x.GetType() == y);
         }
 
-        
+
 
     }
 }
