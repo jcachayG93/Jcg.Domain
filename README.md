@@ -74,9 +74,11 @@ internal class Customer : AggregateRootBase
             // The Pipeline will be created only the first time is called, and cached for as long as the application lives.
             // There is a pipeline for each type of aggregate (classes than derive from AggregateRootBase class)
 
+            // The assembly must be the assembly that contain the handlers
+
             var pipeline = DomainEventHandlingPipelineProvider
                 .GetInstance(Assembly.GetExecutingAssembly())
-                .GetPipeline<Customer>()!;
+                .GetPipeline<Customer>();
 
             // This method updates this aggregate state.
             pipeline.Handle(this, domainEvent);
@@ -120,3 +122,104 @@ public abstract class AggregateRootBase
     public void ResetChanges()
 }
 ```
+
+### Domain Event Handlers
+
+Create DomainEventHandlers for each domain event type.
+
+These handlers must fulfill the following conditions:
+1. Must be a class derived from DomainEventHandlerBase<TAggregate>
+2. Non-Abstract, Non-Generic class
+3. Stateless (the same handlers will be used for any number of aggregate instances)
+4. Must have a parameterless constructor
+5. Must be located in the assembly that is provided to the DomainEventHandlingPipelineProvider class.
+
+```
+internal class CustomerCreatedHandler : DomainEventHandlerBase<Customer>
+{
+   
+    protected override bool PerformHandling(Customer aggregate,
+        IDomainEvent domainEvent)
+    {
+        if (domainEvent is DomainEvents.CustomerCreated cev)
+        {
+            aggregate.Id = cev.AggregateId;
+            aggregate.Name = cev.Name;
+
+            return true;
+        }
+
+        // The return value indicates whether or not the event was handled
+        return false;
+    }
+}
+```
+
+The **DomainEventHandlingPipelineProvider** class is a singleton that will assemble the pipeline with the handlers it finds in the assembly,
+this is done in the AggregateRootBase's When method as in the example above
+
+```
+
+        protected override void When(IDomainEvent domainEvent)
+        {
+            
+            // The DomainEventHandlingPipelineProvider is a singleton.
+            // The Pipeline will be created only the first time is called, and cached for as long as the application lives.
+            // There is a pipeline for each type of aggregate (classes than derive from AggregateRootBase class)
+
+            // The assembly must be the assembly that contain the handlers
+
+            var pipeline = DomainEventHandlingPipelineProvider
+                .GetInstance(Assembly.GetExecutingAssembly())
+                .GetPipeline<Customer>();
+
+            // This method updates this aggregate state.
+            pipeline.Handle(this, domainEvent);
+        }
+```
+
+### Invariant Rule Handlers
+
+Create Invariant Rule Handlers for each aggregate and invariant rule types
+
+These handlers must fulfill the following conditions:
+1. Must a class derived from InvariantRuleHandlerBase<TAggregate>
+1. Non-Abstract, Non-Generic class
+2. Stateless (the same handlers will be used for any number of aggregate instances)
+3. Must have a parameterless constructor
+4. Must be located in the assembly that is provided to the DomainEventHandlingPipelineProvider class.
+
+**Extract from the Aggregate implementation (derived from AggregateRootClass)**
+```
+internal class CustomerCantHaveMoreThanThreeOrdersInvariantHandler
+        : InvariantRuleHandlerBase<Customer>
+    {
+        /// <inheritdoc />
+        protected override void AssertEntityStateIsValid(Customer aggregate)
+        {
+            if (aggregate.Orders.Count > 3)
+            {
+                throw new CustomerHasMoreThanThreeOrdersException();
+            }
+        }
+    }
+```
+
+The **InvariantRuleHandlingPipelineProvider** class is a singleton that will assemble the pipeline with the handlers it finds in the assembly,
+this is done in the AggregateRootBase's AssertEntityState method as in the example above
+
+**Extract from the Aggregate implementation (derived from AggregateRootClass)**
+```
+protected override void AssertEntityStateIsValid()
+        {
+            // Very similar to the DomainEventHandlers pipeline but this one asserts the entity state. Each handler represents a different rule.
+
+            var pipeline = InvariantRuleHandlingPipelineProvider
+                .GetInstance(Assembly.GetExecutingAssembly())
+                .GetPipeline<Customer>();
+
+            pipeline.Handle(this);
+        }
+```
+
+If there are no invariant rule handlers present in the assembly, the pipeline will consist on a single default handler that does not throw any exception.
