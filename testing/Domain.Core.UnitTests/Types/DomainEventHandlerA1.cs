@@ -1,15 +1,12 @@
 ﻿using Domain.Core.Aggregates.DomainEvents;
 using Domain.Core.Aggregates.Handlers;
 
-namespace Domain.Core.UnitTests.Types
+namespace Domain.Core.UnitTests.Types;
+
+public class DomainEventHandlerA1 : DomainEventHandlerBase<AggregateA>
 {
-    public class DomainEventHandlerA1 : IDomainEventHandler<AggregateA>
+    protected override bool PerformHandling(AggregateA aggregate, IDomainEvent domainEvent)
     {
-        /// <inheritdoc />
-        public bool PerformHandling(AggregateA aggregate,
-            IDomainEvent domainEvent)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
 }
