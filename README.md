@@ -123,6 +123,7 @@ internal class PetNameIsRequiredRule
 ### Run
 This is an example with unit test with XUnit
 
+```
 public class PetTests
 {
   public void Creates()
@@ -158,3 +159,4 @@ public class PetTests
   Assert.Throws<Exception>(act);
   }
 }
+```
