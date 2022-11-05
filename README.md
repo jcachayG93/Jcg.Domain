@@ -103,3 +103,58 @@ protected override bool PerformHandling(Pet aggregate,
 }
 
 ```
+
+### Create Invariant Rule Handlers
+```
+internal class PetNameIsRequiredRule
+        : InvariantRuleHandlerBase<Pet>
+    {
+        /// <inheritdoc />
+        protected override void AssertEntityStateIsValid(Pet aggregate)
+        {
+            if (string.IsNullOrEmpty(aggregate.Name))
+            {
+                throw new Exception("Pet name cant be empty");
+            }
+        }
+    }
+```
+
+### Run
+This is an example with unit test with XUnit
+
+public class PetTests
+{
+  public void Creates()
+  {
+    // Arrange
+    var id = Guid.NewGuid();
+    var name = "aaa";
+    // Act
+    var sut = new Pet(id, name);
+    // Assert
+    Assert.True(sut.Name == name);
+    Assert.True(sut.Id == id);
+  }
+  public void Updates()
+  {
+   // Arrange
+   var sut = new Pet(Guid.NewGuid(),"aaa");
+   // Act
+   sut.UpdateName("bbb");
+   // Assert
+   Assert.True(sut.Name == "bbb");
+  }
+  public void Rule_NameIsRequired
+  {
+  // Arrange
+  // Act
+  var act = new Action(()=>
+   {
+    new Pet(Guid.NewGuid(),"");
+   }
+   );
+  // Assert
+  Assert.Throws<Exception>(act);
+  }
+}
