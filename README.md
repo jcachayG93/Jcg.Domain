@@ -3,6 +3,8 @@
 Abstracts complexity from a domain layer by decoupling the DomainEventHandlers and
 InvariantRuleHandlers into sepparate classes that are assembled into pipelines.
 
+[More on the wiki](https://github.com/jcachayG93/jcg-domain-core/wiki)
+
 ## Dependencies
 Net 6.0
 
