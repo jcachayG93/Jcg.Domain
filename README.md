@@ -1,7 +1,10 @@
 # JCG-DOMAIN-CORE
 
-Abstracts complexity from a domain layer by decoupling the DomainEventHandlers and
-InvariantRuleHandlers into sepparate classes that are assembled into pipelines.
+A library that abstracts some complexity from the domain layer, so the client code can better express intent.
+
+It achieves this by decoupling the domain aggregate from the code that mutates its state and assert invariant rules.
+
+Each **domain event** and **invariant rule** has a handler. The library uses reflection to find this handlers and create **pipelines** (chain of responsibility gof pattern)
 
 [More on the wiki](https://github.com/jcachayG93/jcg-domain-core/wiki)
 
