@@ -1,4 +1,5 @@
-# JCG-DOMAIN-CORE
+# JCG-DOMAIN-CORE (Alpha version)
+**This library is in development, apha version**
 
 A library that abstracts some complexity from the domain layer, so the client code can better express intent.
 
