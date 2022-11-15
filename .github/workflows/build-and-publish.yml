@@ -28,5 +28,10 @@ jobs:
         run: dotnet test ../../testing/Domain.Core.UnitTests
       - name: Integration tests
         run: dotnet test ../../testing/Domain.IntegrationTests
+      - name: Push nuget
+        env:
+          NUGET_URL: https://api.nuget.org/v3/index.json
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet pack
         
       
