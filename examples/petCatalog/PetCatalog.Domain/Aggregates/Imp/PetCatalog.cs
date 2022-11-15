@@ -15,7 +15,8 @@ namespace PetCatalogApp.Domain.Aggregates.Imp
 
             Apply(ev);
         }
-        public CatalogId Id { get; set; }
+
+        public CatalogId Id { get; set; } = null!;
         public string CatalogName { get; set; } = "";
         #region Pets
 

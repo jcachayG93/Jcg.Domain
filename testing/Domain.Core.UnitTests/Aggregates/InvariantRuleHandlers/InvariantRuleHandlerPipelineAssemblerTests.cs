@@ -71,7 +71,7 @@ namespace Jcg.Domain.UnitTests.Aggregates.InvariantRuleHandlers
 
             // ************ ACT ****************
 
-            var result = sut.AssemblePipeline<AggregateA>(handlerTypes);
+            var result = sut.AssemblePipeline<AggregateA>(handlerTypes)!;
 
             // ************ ASSERT *************
 
