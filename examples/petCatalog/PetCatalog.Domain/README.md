@@ -200,6 +200,8 @@ To apply a domain event, create an instance of the event and use the Apply metho
 
 > You can have zero to many handlers.
 
+**Invariant Rule handlers are ran each time you apply a domain event**
+
 ### Add an Invariant rule handler
 
 ***PetNameIsRequiredRuleHandler.cs***
