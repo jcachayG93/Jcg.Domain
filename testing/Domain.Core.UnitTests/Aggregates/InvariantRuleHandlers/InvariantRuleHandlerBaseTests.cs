@@ -1,10 +1,9 @@
-﻿using Domain.Core.Aggregates.InvarianRuleHandlers;
-using Domain.Core.UnitTests.TestCommon;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Jcg.Domain.Aggregates.InvarianRuleHandlers;
 using Testing.Common.Mocks;
 using Testing.Common.Types;
 
-namespace Domain.Core.UnitTests.Aggregates.InvariantRuleHandlers
+namespace Jcg.Domain.UnitTests.Aggregates.InvariantRuleHandlers
 {
     public class InvariantRuleHandlerBaseTests
     {

@@ -1,7 +1,7 @@
-﻿using Domain.Core.Aggregates.DomainEvents;
-using Domain.Core.Exceptions;
+﻿using Jcg.Domain.Aggregates.DomainEvents;
+using Jcg.Domain.Exceptions;
 
-namespace Domain.Core.Aggregates
+namespace Jcg.Domain.Aggregates
 {
     /// <summary>
     ///     The base class for an aggregate root

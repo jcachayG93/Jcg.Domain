@@ -1,4 +1,4 @@
-﻿using Domain.Core.Aggregates.DomainEvents;
+﻿using Jcg.Domain.Aggregates.DomainEvents;
 
 namespace Domain.AggregateTests.Types;
 

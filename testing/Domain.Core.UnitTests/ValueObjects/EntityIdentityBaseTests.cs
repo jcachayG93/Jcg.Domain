@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Core.Exceptions;
-using Domain.Core.ValueObjects;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Jcg.Domain.Exceptions;
+using Jcg.Domain.ValueObjects;
 
-namespace Domain.Core.UnitTests.ValueObjects
+namespace Jcg.Domain.UnitTests.ValueObjects
 {
     public class EntityIdentityBaseTests
     {

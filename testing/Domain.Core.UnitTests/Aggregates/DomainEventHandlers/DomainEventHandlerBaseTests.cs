@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Core.Aggregates.DomainEventHandlers;
-using Domain.Core.Aggregates.DomainEvents;
-using Domain.Core.Exceptions;
-using Domain.Core.UnitTests.TestCommon;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Jcg.Domain.Aggregates.DomainEventHandlers;
+using Jcg.Domain.Aggregates.DomainEvents;
+using Jcg.Domain.Exceptions;
 using Moq;
 using Testing.Common.Mocks.DomainEventHandler;
 using Testing.Common.Types;
 
-namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
+namespace Jcg.Domain.UnitTests.Aggregates.DomainEventHandlers
 {
     public class DomainEventHandlerBaseTests
     {

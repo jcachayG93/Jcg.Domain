@@ -1,7 +1,7 @@
-﻿using Domain.Core.Aggregates;
-using Domain.Core.Aggregates.InvarianRuleHandlers;
+﻿using Jcg.Domain.Aggregates;
+using Jcg.Domain.Aggregates.InvarianRuleHandlers;
 
-namespace Domain.Core.UnitTests.TestCommon;
+namespace Jcg.Domain.UnitTests.TestCommon;
 
 public static class ExtractInvariantRuleHandlersHelper
 {

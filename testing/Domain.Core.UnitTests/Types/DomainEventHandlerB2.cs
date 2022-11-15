@@ -1,7 +1,7 @@
-﻿using Domain.Core.Aggregates.DomainEventHandlers;
-using Domain.Core.Aggregates.DomainEvents;
+﻿using Jcg.Domain.Aggregates.DomainEventHandlers;
+using Jcg.Domain.Aggregates.DomainEvents;
 
-namespace Domain.Core.UnitTests.Types;
+namespace Jcg.Domain.UnitTests.Types;
 
 public class DomainEventHandlerB2 : DomainEventHandlerBase<AggregateB>
 {

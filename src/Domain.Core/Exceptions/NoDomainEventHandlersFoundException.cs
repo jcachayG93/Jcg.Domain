@@ -1,4 +1,4 @@
-﻿namespace Domain.Core.Exceptions
+﻿namespace Jcg.Domain.Exceptions
 {
     public class NoDomainEventHandlersFoundException
         : DomainCoreException

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Domain.Core.Aggregates.InvarianRuleHandlers
+namespace Jcg.Domain.Aggregates.InvarianRuleHandlers
 {
     /// <summary>
     ///     Scans the assembly to get all handler types for the specified aggregate type

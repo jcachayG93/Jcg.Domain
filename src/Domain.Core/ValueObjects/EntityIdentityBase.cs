@@ -1,11 +1,6 @@
-﻿using Domain.Core.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Jcg.Domain.Exceptions;
 
-namespace Domain.Core.ValueObjects
+namespace Jcg.Domain.ValueObjects
 {
     /// <summary>
     /// An Entity identity

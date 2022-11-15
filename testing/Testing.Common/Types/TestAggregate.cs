@@ -1,5 +1,5 @@
-﻿using Domain.Core.Aggregates;
-using Domain.Core.Aggregates.DomainEvents;
+﻿using Jcg.Domain.Aggregates;
+using Jcg.Domain.Aggregates.DomainEvents;
 
 namespace Testing.Common.Types
 {

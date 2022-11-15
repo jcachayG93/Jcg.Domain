@@ -1,5 +1,5 @@
-﻿using Domain.Core.Aggregates;
-using Domain.Core.Aggregates.InvarianRuleHandlers;
+﻿using Jcg.Domain.Aggregates;
+using Jcg.Domain.Aggregates.InvarianRuleHandlers;
 
 namespace Testing.Common.Mocks
 {

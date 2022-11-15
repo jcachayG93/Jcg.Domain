@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
-using Domain.Core.Exceptions;
+using Jcg.Domain.Exceptions;
 
-namespace Domain.Core.Aggregates.DomainEventHandlers
+namespace Jcg.Domain.Aggregates.DomainEventHandlers
 {
     public class DomainEventHandlingPipelineProvider
     {

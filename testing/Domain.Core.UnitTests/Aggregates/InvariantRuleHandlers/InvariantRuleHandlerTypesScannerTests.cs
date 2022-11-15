@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Domain.Core.Aggregates.InvarianRuleHandlers;
-using Domain.Core.UnitTests.Types;
+using Jcg.Domain.Aggregates.InvarianRuleHandlers;
+using Jcg.Domain.UnitTests.Types;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates.InvariantRuleHandlers
+namespace Jcg.Domain.UnitTests.Aggregates.InvariantRuleHandlers
 {
     public class InvariantRuleHandlerTypesScannerTests
     {

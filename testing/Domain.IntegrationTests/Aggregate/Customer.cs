@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using Domain.Core.Aggregates;
-using Domain.Core.Aggregates.DomainEventHandlers;
-using Domain.Core.Aggregates.DomainEvents;
-using Domain.Core.Aggregates.InvarianRuleHandlers;
+using Jcg.Domain.Aggregates;
+using Jcg.Domain.Aggregates.DomainEventHandlers;
+using Jcg.Domain.Aggregates.DomainEvents;
+using Jcg.Domain.Aggregates.InvarianRuleHandlers;
 
 namespace Domain.IntegrationTests.Aggregate
 {

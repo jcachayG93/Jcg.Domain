@@ -1,6 +1,6 @@
-﻿using Domain.Core.Exceptions;
+﻿using Jcg.Domain.Exceptions;
 
-namespace Domain.Core.Aggregates.InvarianRuleHandlers
+namespace Jcg.Domain.Aggregates.InvarianRuleHandlers
 {
     internal class InvariantRuleHandlerPipelineAssembler
     {

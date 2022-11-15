@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace Domain.Core.Aggregates.InvarianRuleHandlers
+namespace Jcg.Domain.Aggregates.InvarianRuleHandlers
 {
     public class InvariantRuleHandlingPipelineProvider
     {

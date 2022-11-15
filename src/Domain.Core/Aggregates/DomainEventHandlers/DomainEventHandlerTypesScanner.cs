@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Domain.Core.Aggregates.DomainEventHandlers
+namespace Jcg.Domain.Aggregates.DomainEventHandlers
 {
     /// <summary>
     ///     Scans the assembly to get all handler types for the

@@ -1,6 +1,6 @@
-﻿using Domain.Core.Aggregates.DomainEvents;
+﻿using Jcg.Domain.Aggregates.DomainEvents;
 
-namespace Domain.Core.Exceptions
+namespace Jcg.Domain.Exceptions
 {
     public class UnhandledDomainEventException
         : DomainCoreException

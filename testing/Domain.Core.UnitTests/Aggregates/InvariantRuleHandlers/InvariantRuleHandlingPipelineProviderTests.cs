@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
-using Domain.Core.Aggregates.InvarianRuleHandlers;
-using Domain.Core.UnitTests.TestCommon;
-using Domain.Core.UnitTests.Types;
 using FluentAssertions;
+using Jcg.Domain.Aggregates.InvarianRuleHandlers;
+using Jcg.Domain.UnitTests.TestCommon;
+using Jcg.Domain.UnitTests.Types;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates.InvariantRuleHandlers
+namespace Jcg.Domain.UnitTests.Aggregates.InvariantRuleHandlers
 {
     public class InvariantRuleHandlingPipelineProviderTests
     {

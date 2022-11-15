@@ -1,7 +1,7 @@
-﻿using Domain.Core.Aggregates.DomainEvents;
-using Domain.Core.Exceptions;
+﻿using Jcg.Domain.Aggregates.DomainEvents;
+using Jcg.Domain.Exceptions;
 
-namespace Domain.Core.Aggregates.DomainEventHandlers
+namespace Jcg.Domain.Aggregates.DomainEventHandlers
 {
     /// <summary>
     ///     A Chain of responsibility handler that apply a domain event

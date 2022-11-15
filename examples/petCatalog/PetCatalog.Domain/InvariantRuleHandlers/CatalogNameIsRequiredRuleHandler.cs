@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Core.Aggregates.InvarianRuleHandlers;
+using Jcg.Domain.Aggregates.InvarianRuleHandlers;
 using PetCatalogApp.Domain.Aggregates.Imp;
 using PetCatalogApp.Domain.Exceptions;
 

@@ -1,4 +1,4 @@
-﻿using Domain.Core.Aggregates.InvarianRuleHandlers;
+﻿using Jcg.Domain.Aggregates.InvarianRuleHandlers;
 
 namespace Domain.IntegrationTests.Aggregate
 {

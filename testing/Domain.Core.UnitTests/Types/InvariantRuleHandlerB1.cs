@@ -1,6 +1,6 @@
-﻿using Domain.Core.Aggregates.InvarianRuleHandlers;
+﻿using Jcg.Domain.Aggregates.InvarianRuleHandlers;
 
-namespace Domain.Core.UnitTests.Types;
+namespace Jcg.Domain.UnitTests.Types;
 
 public class InvariantRuleHandlerB1 : InvariantRuleHandlerBase<AggregateB>
 {

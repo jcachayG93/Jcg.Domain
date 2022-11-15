@@ -1,7 +1,7 @@
-﻿using Domain.Core.Aggregates;
-using Domain.Core.Aggregates.DomainEvents;
+﻿using Jcg.Domain.Aggregates;
+using Jcg.Domain.Aggregates.DomainEvents;
 
-namespace Domain.Core.UnitTests.Types
+namespace Jcg.Domain.UnitTests.Types
 {
     public class AggregateB : AggregateRootBase
     {

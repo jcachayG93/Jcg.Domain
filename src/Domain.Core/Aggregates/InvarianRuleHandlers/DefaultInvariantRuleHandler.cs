@@ -1,4 +1,4 @@
-﻿namespace Domain.Core.Aggregates.InvarianRuleHandlers
+﻿namespace Jcg.Domain.Aggregates.InvarianRuleHandlers
 {
     /// <summary>
     ///     This default handler is returned by the InvariantRuleHandler...Provider when no handlers were found in the

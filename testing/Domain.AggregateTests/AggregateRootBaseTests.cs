@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Domain.AggregateTests.Types;
-using Domain.Core.Aggregates.DomainEvents;
-using Domain.Core.Exceptions;
 using FluentAssertions;
+using Jcg.Domain.Aggregates.DomainEvents;
+using Jcg.Domain.Exceptions;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 

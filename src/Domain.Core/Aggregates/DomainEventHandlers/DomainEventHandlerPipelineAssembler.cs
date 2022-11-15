@@ -1,6 +1,6 @@
-﻿using Domain.Core.Exceptions;
+﻿using Jcg.Domain.Exceptions;
 
-namespace Domain.Core.Aggregates.DomainEventHandlers
+namespace Jcg.Domain.Aggregates.DomainEventHandlers
 {
     /// <summary>
     ///     Assembles the DomainEventHandlerPipeline for the specified aggregate type

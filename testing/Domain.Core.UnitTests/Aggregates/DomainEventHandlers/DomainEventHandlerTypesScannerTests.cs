@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Core.Aggregates.DomainEventHandlers;
-using Domain.Core.UnitTests.Types;
+﻿using System.Reflection;
+using Jcg.Domain.Aggregates.DomainEventHandlers;
+using Jcg.Domain.UnitTests.Types;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
+namespace Jcg.Domain.UnitTests.Aggregates.DomainEventHandlers
 {
     public class DomainEventHandlerTypesScannerTests
     {

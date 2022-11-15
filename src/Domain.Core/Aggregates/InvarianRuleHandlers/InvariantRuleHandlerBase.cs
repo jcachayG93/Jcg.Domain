@@ -1,4 +1,4 @@
-﻿namespace Domain.Core.Aggregates.InvarianRuleHandlers
+﻿namespace Jcg.Domain.Aggregates.InvarianRuleHandlers
 {
     /// <summary>
     ///     A Chain of responsibility handler that assert an aggregate state

@@ -1,4 +1,4 @@
-﻿namespace Domain.Core.Aggregates.DomainEvents;
+﻿namespace Jcg.Domain.Aggregates.DomainEvents;
 
 /// <summary>
 ///     A domain event that initializes an aggregate.

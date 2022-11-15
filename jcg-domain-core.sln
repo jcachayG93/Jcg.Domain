@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Core", "src\Domain.Core\Domain.Core.csproj", "{9D86BCAC-4A86-40B1-B598-1C9395C7BDF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jcg.Domain", "src\Domain.Core\Jcg.Domain.csproj", "{9D86BCAC-4A86-40B1-B598-1C9395C7BDF4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Core.UnitTests", "testing\Domain.Core.UnitTests\Domain.Core.UnitTests.csproj", "{4EFBC133-17AC-43E2-8241-C1846172F762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jcg.Domain.UnitTests", "testing\Domain.Core.UnitTests\Jcg.Domain.UnitTests.csproj", "{4EFBC133-17AC-43E2-8241-C1846172F762}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DAC64EB8-0C24-467C-9152-23971554501D}"
 EndProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{6D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetCatalogApp.Domain", "examples\petCatalog\PetCatalog.Domain\PetCatalogApp.Domain.csproj", "{051EBD58-E5F9-48AC-991A-0E4547C39C18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetCatalogApp.Domain.UnitTests", "examples\petCatalog\PetCatalog.Domain.UnitTests\PetCatalogApp.Domain.UnitTests.csproj", "{61AA449F-1B95-4D80-A32C-429167903AFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetCatalogApp.Domain.UnitTests", "examples\petCatalog\PetCatalog.Domain.UnitTests\PetCatalogApp.Domain.UnitTests.csproj", "{61AA449F-1B95-4D80-A32C-429167903AFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

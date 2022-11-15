@@ -1,4 +1,4 @@
-﻿using Domain.Core.ValueObjects;
+﻿using Jcg.Domain.ValueObjects;
 
 namespace PetCatalogApp.Domain.ValueObjects
 {

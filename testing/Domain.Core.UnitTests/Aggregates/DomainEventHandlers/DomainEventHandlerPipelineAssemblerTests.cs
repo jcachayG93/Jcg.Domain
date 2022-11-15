@@ -1,12 +1,12 @@
-﻿using Domain.Core.Aggregates.DomainEventHandlers;
-using Domain.Core.Exceptions;
-using Domain.Core.UnitTests.TestCommon;
-using Domain.Core.UnitTests.Types;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Jcg.Domain.Aggregates.DomainEventHandlers;
+using Jcg.Domain.Exceptions;
+using Jcg.Domain.UnitTests.TestCommon;
+using Jcg.Domain.UnitTests.Types;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
+namespace Jcg.Domain.UnitTests.Aggregates.DomainEventHandlers
 {
     public class DomainEventHandlerPipelineAssemblerTests
     {
