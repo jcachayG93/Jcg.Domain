@@ -33,5 +33,11 @@ jobs:
           NUGET_URL: https://api.nuget.org/v3/index.json
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: dotnet pack
+      - name: Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Jcg.Domain**.nupkg
+          path: bin/debug
+          if-no-files-found: error
         
       
