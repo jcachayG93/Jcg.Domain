@@ -4,6 +4,26 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Jcg.Domain</Title>
+    <Version>1.0.0-alpha</Version>
+    <Authors>Julio Cachay</Authors>
+    <Description>A library that abstracts some complexity from the domain layer, so the client code can better express intent.
+It achieves this by decoupling the domain aggregate from the code that mutates its state and asserts invariant rules.</Description>
+    <Copyright>Copyright(c) Julio Cachay 2022</Copyright>
+    <PackageProjectUrl>https://github.com/jcachayG93/Jcg.Domain/wiki</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/jcachayG93/Jcg.Domain</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>domain; ddd; domain-driven-design</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
