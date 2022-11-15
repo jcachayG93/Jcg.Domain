@@ -6,7 +6,7 @@ The following are some notes about it.
 
 ## Encapsulation of the domain
 
-This is an example of one of several ways to encapsulate the domain layer. This is the way I work when using this library.
+The sample application is an example of one way to encapsulate the domain layer. 
 
 See the following code for the aggregate in this project:
 
@@ -52,10 +52,10 @@ See the following code for the aggregate in this project:
 ```
 
 ### The interface is exposed to the other layers
-The interface is public, and inmutable, forcing the clients to use aggregate methods to operate on the aggregate.
+The interface is public, and immutable, forcing the clients to use aggregate methods to operate on the aggregate.
 
 ### The implementation is internal and mutable
-The implementation (the class above) has **internal access** so it can only be accessed by the domain layer (and potentially other layers like Infrastructure by granting internal access)
+The implementation (the class above) has **internal access**, so its accessible from the domain project only (you can grant extra access, for example, to the Infrastructure layer)
 
 It also has automatic properties:
 
@@ -63,7 +63,7 @@ It also has automatic properties:
 public string CatalogName { get; set; } = "";
 ```
 
-so the domain event handlers, and potentially the persistence layer can operate freely on it. This can also be achieved by providing methods for this purpose that are members of the implementation but not the interface. 
+So the domain event handlers, and potentially the persistence layer, can operate freely on it. Another way to achieve the same result is by providing methods for this purpose that are members of the implementation but not the interface. 
 
 ### Use factories
 For the application layer to create the aggregate, you just need to create a factory service, not shown in this project:
@@ -97,7 +97,7 @@ public class PetCatalogFactoryService : IPetCatalogFactoryService
 
 Observe there are two types of domain events: ICreationalDomainEvent and INonCreationalDomainEvent
 
-Both implement the **IDomainEvent** interface wich has a single AggregateId property.
+Both implement the **IDomainEvent** interface, wich has a single AggregateId property.
 
 The difference is:
 
@@ -128,11 +128,11 @@ internal class PetAddedHandler : DomainEventHandlerBase<PetCatalog>
 }
 ```
 
-> If you apply a domain event for which a handler does not exists, an exception will be thrown.
+> If you apply a domain event for which a handler does not exist, an exception will be thrown.
 
 ### Find the domain events and build the handler pipeline
 
-See this method inside the aggregate
+See this method inside the aggregate.
 
 ***PetCatalog.cs***
 ```
@@ -156,26 +156,21 @@ DomainEventHandlingPipelineProvider
 **DomainEventHandlingPipelineProvider** is a singleton. 
 
 The first time you call it (during the application lifetime), it scans the assembly for all domain event handlers for all existing aggregates,
-and it uses these handlers to build a pipeline (Chain of Reposibility GOF Pattern).
+and it uses these handlers to build a pipeline (Chain of Responsibility GOF Pattern).
 
-The following code
+The following code gets the pipeline from the provider.
 ```
 .GetPipeline<PetCatalog>();
 ```
-
-gets the pipeline from the provider.
-
-The code
+The following code handles the domain event.
 ```
 pipeline.Handle(this, domainEvent);
 ```
 
-Uses the pipeline to update the aggregate state.
-
 > Because the DomainEventHandligPipelineProvider is a singleton, the pipeline is assembled only once during the application lifetime.
 
 ### Apply a domain event in the aggregate
-To apply a domain event, just create an instance of the event and use the Apply method as in the following example.
+To apply a domain event, create an instance of the event and use the Apply method as in the following example.
 
 ***PetCatalog.cs***
 ```
@@ -197,13 +192,13 @@ To apply a domain event, just create an instance of the event and use the Apply 
     }
 ```
 
-**Avoid changing the aggregate state in any other way than applying domain events.
+**Avoid changing the aggregate state other than by applying domain events.
 
 ## Invariant Rule Handlers
 
-> Handlers that assert that the aggregate fulfills all it's invariants. Each Handler implements one single rule. 
+> Handlers that assert that the aggregate fulfills all its invariants. Each handler implements one single rule. 
 
-> You can have zero, one or as many handlers as needed.
+> You can have zero to many handlers.
 
 ### Add an Invariant rule handler
 
@@ -223,7 +218,7 @@ internal class PetNameIsRequiredRuleHandler : InvariantRuleHandlerBase<PetCatalo
 
 ### Find the Invariant Rule Handlers and build the handler pipeline
 
-See this method inside the aggregate
+See this method inside the aggregate.
 
 ***PetCatalog.cs***
 ```
@@ -237,7 +232,7 @@ See this method inside the aggregate
         }
 ```
 
-Acts in similar fasion than the DomainEvent Handlers, but, for InvariantRuleHandlers
+Acts in similar fashion than the DomainEvent Handlers, but for InvariantRuleHandlers
 
 
 > Because the DomainEventHandligPipelineProvider is a singleton, the pipeline is assembled only once during the application lifetime.
@@ -251,26 +246,30 @@ Acts in similar fasion than the DomainEvent Handlers, but, for InvariantRuleHand
 public long Version { get; protected set; }
 ```
 
-This value increments each time a domain event is applied. You should set it when loading an aggregate from the database (that is why it has protected access). Set it to zero when the aggregate is constructed for the first time (unless is been loaded from a database)
+This value increments each time a domain event is applied. You should set it when loading an aggregate from the database (that is why it has protected access).
+
+It has a protected setter, so your aggregate can set the version to match the stored value when loading it from a database.
+
+One use case for the Version property is optimistic concurrency.
 
 ### Changes
 
-Use this method to get the Changes (all the domain events that were added since the aggregate was constructed)
+Use this method to get the Changes (all the domain events applied since construction)
 
 ***AggregateRootBase.cs***
 ```
 public IDomainEvent[] Changes => _changes.ToArray();
 ```
 
-A typical use for this method is to publish this domain events when saving the aggregate to the database.
+A typical use for this method is to publish domain events when saving the aggregate to the database.
 
-Use the following method to reset the Changes list to an empty collection
+Use the following method to reset the Changes list to an empty collection.
 
 ***AggregateRootBase.cs***
 ```
 public void ResetChanges();
 ```
 
-A typical use case for this method is to reset the changes when the domain events were published or when loading the aggregate from the database.
+A typical use case for this method is to reset the changes when the domain events are published or when loading the aggregate from the database.
 
 
