@@ -6,7 +6,7 @@ using FluentAssertions;
 using Testing.Common.Assertions;
 using Testing.Common.Extensions;
 
-namespace Domain.Core.UnitTests.Aggregates
+namespace Domain.AggregateTests
 {
     public class AggregateRootBaseTests
     {

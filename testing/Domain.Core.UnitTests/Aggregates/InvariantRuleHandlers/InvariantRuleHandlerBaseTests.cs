@@ -2,6 +2,7 @@
 using Domain.Core.UnitTests.TestCommon;
 using FluentAssertions;
 using Testing.Common.Mocks;
+using Testing.Common.Types;
 
 namespace Domain.Core.UnitTests.Aggregates.InvariantRuleHandlers
 {

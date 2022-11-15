@@ -10,6 +10,7 @@ using Domain.Core.UnitTests.TestCommon;
 using FluentAssertions;
 using Moq;
 using Testing.Common.Mocks.DomainEventHandler;
+using Testing.Common.Types;
 
 namespace Domain.Core.UnitTests.Aggregates.DomainEventHandlers
 {

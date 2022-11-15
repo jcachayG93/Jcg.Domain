@@ -1,7 +1,7 @@
 ﻿using Domain.Core.Aggregates;
 using Domain.Core.Aggregates.DomainEvents;
 
-namespace Domain.Core.UnitTests.TestCommon
+namespace Testing.Common.Types
 {
     public class TestAggregate
         : AggregateRootBase
