@@ -22,7 +22,11 @@ jobs:
           dotnet-version: 7.0.x
       - name: build
         run: dotnet build
-      - name: test
+      - name: test Aggregate
         run: dotnet test ../../testing/Domain.AggregateTests
+      - name: test core unit
+        run: dotnet test ../../testing/Domain.Core.UnitTests
+      - name: Integration tests
+        run: dotnet test ../../testing/Domain.IntegrationTests
         
       
