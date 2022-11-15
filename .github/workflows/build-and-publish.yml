@@ -21,6 +21,8 @@ jobs:
         with:
           dotnet-version: 7.0.x
       - name: build
-        run: dotnet run
+        run: dotnet build
+      - name: test
+        run: dotnet test
         
       
