@@ -23,6 +23,6 @@ jobs:
       - name: build
         run: dotnet build
       - name: test
-        run: dotnet test
+        run: dotnet test ../../testing/Domain.AggregateTests
         
       
