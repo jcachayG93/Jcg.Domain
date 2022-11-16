@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>Jcg.Domain</Title>
-    <Version>1.0.0-alpha</Version>
+    <Version>1.0.1-alpha</Version>
     <Authors>Julio Cachay</Authors>
     <Description>A library that abstracts some complexity from the domain layer, so the client code can better express intent.
 It achieves this by decoupling the domain aggregate from the code that mutates its state and asserts invariant rules.</Description>
